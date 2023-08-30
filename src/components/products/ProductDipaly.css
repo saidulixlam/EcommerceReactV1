@@ -1,0 +1,15 @@
+/* Initial styles for the image */
+.imageStyle {
+    transition: transform 0.3s ease-in; /* Add smooth transition effect */
+  }
+  
+  /* Additional styles for hover effect */
+  .imageStyle:hover {
+    transform: scale(1.2); /* Scale up the image on hover */
+    
+  }
+  
+  /* Additional styles for click effect */
+  .imageStyle.clicked {
+    transform: rotate(10deg); /* Rotate the image when clicked */
+  }
