@@ -4,6 +4,8 @@ import ProductList from './components/products/ProductList';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import Cart from './components/Cart/Cart';
+// import CartContext from './components/store/cart-context';
+import CartProvider from './components/store/cartProvider';
 
 const App = () => {
   const [showCart, setShowCart] = useState(false);
@@ -35,7 +37,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <CartProvider>
       <NavBar onClick={cartHandler} />
       <Header />
       <ProductList />
@@ -44,9 +46,9 @@ const App = () => {
       <div style={backdropStyle}></div>
 
       <div style={cartStyle}>
-       {showCart && <Cart />}
+        <Cart />
       </div>
-    </>
+    </CartProvider>
   );
 };
 
