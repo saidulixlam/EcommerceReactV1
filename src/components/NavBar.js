@@ -1,10 +1,10 @@
 import { Nav, Container, Navbar } from 'react-bootstrap';
-import Cart from './Cart/Cart';
+import HeaderCart from './Cart/HeaderCart';
 const linkStyle = {
     color: 'white', // Set the font color to white
 };
 
-const NavBar = () => {
+const NavBar = (props) => {
     return (
         <Navbar bg='dark' variant='dark' className="fixed-top" style={{ zIndex: 1000 }}>
             <Container>
@@ -14,8 +14,8 @@ const NavBar = () => {
                         <Nav.Link href="#store" style={linkStyle}>Store</Nav.Link>
                         <Nav.Link href="#about" style={linkStyle}>About</Nav.Link>
                     </Nav>
-                    <div className="ml-auto">
-                        <Cart />
+                    <div >
+                        <HeaderCart onClick={props.onClick}/>
                     </div>
                 </div>
             </Container>

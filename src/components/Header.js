@@ -9,6 +9,7 @@ const Header = () => {
         color: 'white',
         padding: '4rem 4rem',
         margin: '0 auto', // Add padding to adjust the header's height
+        marginTop:'4rem',
         textTransform: 'uppercase',/* Convert text to uppercase */
         letterSpacing: '2px'
     };
