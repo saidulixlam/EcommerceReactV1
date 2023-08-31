@@ -1,26 +1,40 @@
-import { Nav, Container, Navbar } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import HeaderCart from './Cart/HeaderCart';
-const linkStyle = {
-    color: 'white', // Set the font color to white
-};
 
 const NavBar = (props) => {
-    return (
-        <Navbar bg='dark' variant='dark' className="fixed-top" style={{ zIndex: 1000 }}>
-            <Container>
-                <div className="d-flex justify-content-between align-items-center w-100">
-                    <Nav>
-                        <Nav.Link href="#home" style={linkStyle}>Home</Nav.Link>
-                        <Nav.Link href="#store" style={linkStyle}>Store</Nav.Link>
-                        <Nav.Link href="#about" style={linkStyle}>About</Nav.Link>
-                    </Nav>
-                    <div >
-                        <HeaderCart onClick={props.onClick}/>
-                    </div>
-                </div>
-            </Container>
-        </Navbar>
-    );
-}
+  const linkStyle = {
+    color: 'white',
+    textDecoration: 'none', // Remove underlines from links
+  };
+
+  return (
+    <Navbar bg='dark' variant='dark' className="fixed-top" style={{ zIndex: 1000 }}>
+      <Navbar.Collapse>
+        <Nav className="mx-auto">
+          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+            <Nav.Link as={Link} to="/" style={linkStyle}>
+              Home
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+            <Nav.Link as={Link} to="/store" style={linkStyle}>
+              Store
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+            <Nav.Link as={Link} to="/about" style={linkStyle}>
+              About
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <div>
+          <HeaderCart onClick={props.onClick} />
+        </div>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
 
 export default NavBar;

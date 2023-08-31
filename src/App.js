@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-// import { Container, Table } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import React Router
 import ProductList from './components/products/ProductList';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import Cart from './components/Cart/Cart';
-// import CartContext from './components/store/cart-context';
+import About from './components/Pages/About'; // Import the About component
 import CartProvider from './components/store/cartProvider';
 
 const App = () => {
@@ -12,6 +12,10 @@ const App = () => {
 
   const cartHandler = () => {
     setShowCart(!showCart);
+  };
+
+  const closeCart = () => {
+    setShowCart(false); // Close the cart when clicking on the backdrop
   };
 
   const cartStyle = {
@@ -37,18 +41,24 @@ const App = () => {
   };
 
   return (
-    <CartProvider>
-      <NavBar onClick={cartHandler} />
-      <Header />
-      <ProductList />
+    <Router>
+      <CartProvider>
+        <NavBar onClick={cartHandler} />
+        <Header />
 
-      {/* Backdrop */}
-      <div style={backdropStyle}></div>
+        {/* Use Routes with Route components */}
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/store" element={<ProductList />} />
+          <Route path="/" element={<ProductList />} />
+        </Routes>
 
-      <div style={cartStyle}>
-        <Cart />
-      </div>
-    </CartProvider>
+        <div style={backdropStyle} onClick={closeCart}></div>
+        <div style={cartStyle}>
+          <Cart />
+        </div>
+      </CartProvider>
+    </Router>
   );
 };
 

@@ -1,24 +1,18 @@
-// import { Container } from "react-bootstrap";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+
 const Header = () => {
-    const headerStyle = {
-        backgroundColor: '#777',
-        textAlign: 'center',
-        fontWeight: 'bolder',
-        fontSize: '100px',
-        width: '100vw',
-        color: 'white',
-        padding: '4rem 4rem',
-        margin: '0 auto', // Add padding to adjust the header's height
-        marginTop:'4rem',
-        textTransform: 'uppercase',/* Convert text to uppercase */
-        letterSpacing: '2px'
-    };
-
-    return (
-
-        <h1 style={headerStyle}>The Generics</h1>
-
-    );
+  return (
+    <div className="bg-success text-white text-center py-4 mt-5">
+      <Container>
+        <Row>
+          <Col>
+            <h1 className="font-weight-bolder display-1 my-5">The Generics</h1>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
 export default Header;
