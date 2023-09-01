@@ -28,6 +28,11 @@ const NavBar = (props) => {
               About
             </Nav.Link>
           </Nav.Item>
+          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+            <Nav.Link as={Link} to="/contact" style={linkStyle}>
+              Contact Us
+            </Nav.Link>
+          </Nav.Item>
         </Nav>
         <div>
           <HeaderCart onClick={props.onClick} />
