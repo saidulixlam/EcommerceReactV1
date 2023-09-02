@@ -61,12 +61,14 @@ const PeoductList = () => {
                 <h1 className="text-center my-4">Music</h1>
                 <Row className="d-flex justify-content-space-evenly align-items-center gy-5">
                     {product.map((item, index) => (
+                        
                         <ProductDisplay
                             key={index}
                             title={item.title}
                             imageUrl={item.imageUrl}
                             price={item.price}
                         />
+                        
                     ))}
                 </Row>
             </Container>

@@ -6,7 +6,7 @@ const CartProvider = (props) => {
     const addItemHandler = (item) => {
         setItems([...items, item]);
     }
-console.log(items);
+
     const removeItemHandler =(id)=>{
         const updatedItems = items.filter(item => item.id !== id);
     
