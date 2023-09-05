@@ -7,7 +7,6 @@ import AuthContext from '../authCtx/auth-context';
 const NavBar = (props) => {
   const ctx = useContext(AuthContext);
   const isLoggedIn=ctx.isLoggedIn;
-  console.log(isLoggedIn);
   const linkStyle = {
     color: 'white',
     textDecoration: 'none', // Remove underlines from links

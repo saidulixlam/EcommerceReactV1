@@ -55,9 +55,8 @@ const App = () => {
         'Content-Type': 'application/json'
       }
     });
-
-    const data = await res.json();
-    console.log(data);
+     const data = await res.json();
+     console.log(data);
   }
 
   return (
@@ -69,10 +68,10 @@ const App = () => {
         {/* Use Routes with Route components */}
         <Switch>
           <Route path="/about" ><About /></Route>
-          <Route path="/login" ><Login /></Route>
+          <Route path="/login"  exact><Login /></Route>
           <Route path="/products" ><ProductList /></Route>
           <Route path="/contact" ><ContactUs onAddUser={adduserHandler} /></Route>
-          <Route path="/home" exact ><Home /></Route>
+          <Route path="/home" ><Home /></Route>
           <Route path="/product/:productId" ><ProductDetails /></Route>
         </Switch>
 

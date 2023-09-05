@@ -1,5 +1,5 @@
 import { useState, useRef, useContext } from 'react';
-import { Form, Button,Container } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 
 // import classes from './AuthForm.module.css';
 import AuthContext from '../../authCtx/auth-context';
@@ -15,7 +15,7 @@ const Login = () => {
 
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
-       
+
     };
 
     function submitHandler(event) {
@@ -48,15 +48,18 @@ const Login = () => {
                 if (res.ok) {
                     return res.json(); // Parse the response JSON when it's successful
                 } else {
-                    const data = await res.json();
-                    console.log(data);
+                    // const data = await res.json();
+                    // console.log(data);
+                
                     let errorMessage = 'Authentication Failed';
                     throw new Error(errorMessage);
                 }
             })
             .then((data) => {
-                authCtx.login(data.idToken) // Log data in both cases
-               history.replace('/products')
+                authCtx.login(data.idToken, data.email) // Log data in both cases
+                console.log(data.email);
+                history.replace('/products')
+               
             })
             .catch((err) => {
                 alert(err.message);
@@ -85,12 +88,12 @@ const Login = () => {
                 <section>
                     {!isLoading && <Button className='my-3' type="submit" variant='primary'>{isLogin ? 'Login' : 'Create Account'}</Button>}
                     {isLoading && <p>Sending request...</p>}
-                    
+
                 </section>
                 <section className='d-flex justify-content-center'>
-                <Button  className='my-3' variant="secondary"  onClick={switchAuthModeHandler}>
+                    <Button className='my-3' variant="secondary" onClick={switchAuthModeHandler}>
                         {isLogin ? "Don't have an account , Create new account" : 'Already have an account ? Login with existing account'}
-                </Button>
+                    </Button>
                 </section>
             </Form>
         </Container>
