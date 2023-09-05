@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'; // Import React Router
 import ProductList from './components/products/ProductList';
 import Header from './components/Header';
@@ -9,10 +9,13 @@ import CartProvider from './components/store/cartProvider';
 import Home from './components/Pages/Home';
 import ContactUs from './components/Pages/ContactForm';
 import ProductDetails from './components/products/PoductDetails'
+import Login from './components/Pages/Login';
+// import AuthContext from './authCtx/auth-context';
 
 
 const App = () => {
   const [showCart, setShowCart] = useState(false);
+  // const ctx=useContext(AuthContext);
 
   const cartHandler = () => {
     setShowCart(!showCart);
@@ -66,10 +69,11 @@ async function adduserHandler(user){
         {/* Use Routes with Route components */}
         <Switch>
           <Route path="/about" ><About/></Route>
-          <Route path="/store" ><ProductList /></Route>
+          <Route path="/login" ><Login/></Route>
+         <Route path="/product" ><ProductList /></Route>
           <Route path="/contact" ><ContactUs onAddUser={adduserHandler}/></Route>
-          <Route path="/" exact ><Home /></Route>
-          <Route path="/products/:productId" ><ProductDetails/></Route>
+          <Route path="/home" exact ><Home /></Route>
+         <Route path="/products/:productId" ><ProductDetails/></Route>
         </Switch>
 
         <div style={backdropStyle} onClick={closeCart}></div>

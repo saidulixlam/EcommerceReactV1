@@ -1,9 +1,13 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import HeaderCart from './Cart/HeaderCart';
+import AuthContext from '../authCtx/auth-context';
 
 const NavBar = (props) => {
+  const ctx = useContext(AuthContext);
+  const isLoggedIn=ctx.isLoggedIn;
+  console.log(isLoggedIn);
   const linkStyle = {
     color: 'white',
     textDecoration: 'none', // Remove underlines from links
@@ -14,25 +18,27 @@ const NavBar = (props) => {
       <Navbar.Collapse>
         <Nav className="mx-auto">
           <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-            <Nav.Link as={Link} to="/" style={linkStyle}>
+            <Nav.Link as={Link} to="/home" style={linkStyle}>
               Home
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-            <Nav.Link as={Link} to="/store" style={linkStyle}>
+          {isLoggedIn &&  <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+           <Nav.Link as={Link} to="/product" style={linkStyle}>
               Store
             </Nav.Link>
-          </Nav.Item>
+          </Nav.Item>}
           <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
             <Nav.Link as={Link} to="/about" style={linkStyle}>
               About
             </Nav.Link>
           </Nav.Item>
+
           <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-            <Nav.Link as={Link} to="/contact" style={linkStyle}>
-              Contact Us
+            <Nav.Link as={Link} to="/login" style={linkStyle}>
+              Login
             </Nav.Link>
           </Nav.Item>
+
         </Nav>
         <div>
           <HeaderCart onClick={props.onClick} />
