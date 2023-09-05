@@ -1,5 +1,5 @@
-import React, {  useState } from 'react';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'; // Import React Router
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; // Import React Router
 import ProductList from './components/products/ProductList';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
@@ -46,19 +46,19 @@ const App = () => {
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
     zIndex: '998', // Below the cart
   };
-async function adduserHandler(user){
-  const res = await fetch('https://ecommerce-react-2638b-default-rtdb.firebaseio.com/users.json', {
-    method: 'POST',
-    body: JSON.stringify(user),
-    headers: {
-      //it is not required bvut good practice to aware your backend about data u r sending
-      'Content-Type': 'application/json'
-    }
-  });
+  async function adduserHandler(user) {
+    const res = await fetch('https://ecommerce-react-2638b-default-rtdb.firebaseio.com/users.json', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        //it is not required bvut good practice to aware your backend about data u r sending
+        'Content-Type': 'application/json'
+      }
+    });
 
-  const data = await res.json();
-  console.log(data);
-}
+    const data = await res.json();
+    console.log(data);
+  }
 
   return (
     <Router>
@@ -68,12 +68,12 @@ async function adduserHandler(user){
 
         {/* Use Routes with Route components */}
         <Switch>
-          <Route path="/about" ><About/></Route>
-          <Route path="/login" ><Login/></Route>
-         <Route path="/product" ><ProductList /></Route>
-          <Route path="/contact" ><ContactUs onAddUser={adduserHandler}/></Route>
+          <Route path="/about" ><About /></Route>
+          <Route path="/login" ><Login /></Route>
+          <Route path="/products" ><ProductList /></Route>
+          <Route path="/contact" ><ContactUs onAddUser={adduserHandler} /></Route>
           <Route path="/home" exact ><Home /></Route>
-         <Route path="/products/:productId" ><ProductDetails/></Route>
+          <Route path="/product/:productId" ><ProductDetails /></Route>
         </Switch>
 
         <div style={backdropStyle} onClick={closeCart}></div>

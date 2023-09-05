@@ -20,7 +20,7 @@ const ProductDisplay = (props) => {
         <Col style={{ display: 'flex', justifyContent: 'space-evenly' }} sm={6} md={6} lg={6} xl={6}>
             <Card style={{ width: '16rem', border: 'none' }}>
                 <h3 className="text-center my-4">{props.title}</h3>
-                <Link to={`/products/${props.title}`}>
+                <Link to={`/product/${props.title}`}>
                     <Card.Img
                         variant="top"
                         src={props.imageUrl}

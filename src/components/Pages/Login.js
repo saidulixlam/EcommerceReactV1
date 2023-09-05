@@ -1,11 +1,14 @@
 import { useState, useRef, useContext } from 'react';
 import { Form, Button,Container } from 'react-bootstrap';
+
 // import classes from './AuthForm.module.css';
 import AuthContext from '../../authCtx/auth-context';
+import { useHistory } from 'react-router-dom';
 const Login = () => {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const history = useHistory();
     const authCtx = useContext(AuthContext);
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -53,7 +56,7 @@ const Login = () => {
             })
             .then((data) => {
                 authCtx.login(data.idToken) // Log data in both cases
-               
+               history.replace('/products')
             })
             .catch((err) => {
                 alert(err.message);
@@ -80,7 +83,7 @@ const Login = () => {
                         ref={passwordRef} />
                 </Form.Group>
                 <section>
-                    {!isLoading && <Button variant='primary'>{isLogin ? 'Login' : 'Create Account'}</Button>}
+                    {!isLoading && <Button className='my-3' type="submit" variant='primary'>{isLogin ? 'Login' : 'Create Account'}</Button>}
                     {isLoading && <p>Sending request...</p>}
                     
                 </section>

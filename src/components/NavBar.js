@@ -22,8 +22,8 @@ const NavBar = (props) => {
               Home
             </Nav.Link>
           </Nav.Item>
-          {isLoggedIn &&  <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-           <Nav.Link as={Link} to="/product" style={linkStyle}>
+          {isLoggedIn &&  <Nav.Item className="mx-3">
+           <Nav.Link as={Link} to="/products" style={linkStyle}>
               Store
             </Nav.Link>
           </Nav.Item>}
