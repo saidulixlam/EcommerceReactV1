@@ -1,5 +1,5 @@
 import React,{useContext} from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav ,Button} from 'react-bootstrap';
 import { Link ,useHistory} from 'react-router-dom';
 import HeaderCart from './Cart/HeaderCart';
 import AuthContext from '../authCtx/auth-context';
@@ -15,6 +15,15 @@ const history=useHistory();
 if(!isLoggedIn){
   history.replace('/login');
 }
+
+const logoutHandler = () => {
+  ctx.logout();
+  localStorage.removeItem('token');
+  //alert('Log out Succesfull')
+  // Clear user session (e.g., remove tokens, clear local storage)
+  // Redirect to the login page or perform any other necessary actions
+  // Display a logout notification if needed
+};
   return (
     <Navbar bg='dark' variant='dark' className="fixed-top" style={{ zIndex: 1000 }}>
       <Navbar.Collapse>
@@ -35,10 +44,13 @@ if(!isLoggedIn){
             </Nav.Link>
           </Nav.Item>
 
-          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+          {!isLoggedIn && <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
             <Nav.Link as={Link} to="/login" style={linkStyle}>
               Login
             </Nav.Link>
+          </Nav.Item>}
+          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
+          {isLoggedIn && <Button variant='light' onClick={logoutHandler}>Logout</Button>}
           </Nav.Item>
 
         </Nav>

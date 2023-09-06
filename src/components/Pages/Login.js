@@ -111,7 +111,7 @@ const Login = () => {
                     >
                         {isLogin
                             ? "Don't have an account? Create a new account"
-                            : 'Already have an account? Log in'}
+                            : 'Already have an account? Login here..'}
                     </Button>
                 </div>
             </Form>
@@ -120,10 +120,3 @@ const Login = () => {
 };
 
 export default Login;
-
-//firebase apis
-//1.for eamil password signin :
-//url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAUCboRWtRYqoJfilnJXv_ws_eNYSV3-wI'
-
-//2.already logged in
-// url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAUCboRWtRYqoJfilnJXv_ws_eNYSV3-wI'

@@ -8,11 +8,16 @@ const CartProvider = (props) => {
     console.log(items);
     const authCtx = useContext(AuthContext);
     const useremail = authCtx.email;
-
+    const isLoggedIn=authCtx.isLoggedIn;
     useEffect(() => {
         // Call the getItems function when the component is mounted
         console.log('this was called');
+        if(!isLoggedIn){
+            updatedItems([]);
+            return;
+        }else{
         getItems();
+        }
     }, [authCtx.isLoggedIn]);
 
     const getItems = async () => {
@@ -23,7 +28,7 @@ const CartProvider = (props) => {
             
             const processedEmail = removeAtSymbol(useremail);
             console.log('i am there in getitems');
-            const response = await axios.get(`https://crudcrud.com/api/a55b12ea4f364cf6a49f36b251112945/${processedEmail}`);
+            const response = await axios.get(`https://crudcrud.com/api/cebbb4e29824495f89cdcb06321c9e7e/${processedEmail}`);
             
             updatedItems(response.data);
             console.log(items);
@@ -48,7 +53,7 @@ const CartProvider = (props) => {
                     return email.replace(/[@.]/g, ''); // Replace "@" with an empty string
                 };
                 const processedEmail = removeAtSymbol(useremail);
-                const res = await axios.post(`https://crudcrud.com/api/a55b12ea4f364cf6a49f36b251112945/${processedEmail}`, item);
+                const res = await axios.post(`https://crudcrud.com/api/cebbb4e29824495f89cdcb06321c9e7e/${processedEmail}`, item);
                 
                 updatedItemsArray.push(res.data);
                    
@@ -74,7 +79,7 @@ const CartProvider = (props) => {
 
             const processedEmail = removeAtSymbol(useremail);
 
-            await axios.delete(`https://crudcrud.com/api/a55b12ea4f364cf6a49f36b251112945/${processedEmail}/${id}`);
+            await axios.delete(`https://crudcrud.com/api/cebbb4e29824495f89cdcb06321c9e7e/${processedEmail}/${id}`);
 
             // Update the state by filtering out the deleted item
             const updatedItemsArray = items.filter((item) => item._id !== id);
