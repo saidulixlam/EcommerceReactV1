@@ -11,6 +11,7 @@ const ProductDisplay = (props) => {
         title: props.title,
         imageUrl: props.imageUrl,
         price: props.price,
+        quantity:Number(1)
     }
 
     function addToCartHandler(e) {

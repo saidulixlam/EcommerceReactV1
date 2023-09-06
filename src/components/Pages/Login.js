@@ -1,13 +1,10 @@
 import { useState, useRef, useContext } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
-
-// import classes from './AuthForm.module.css';
 import AuthContext from '../../authCtx/auth-context';
 import { useHistory } from 'react-router-dom';
 const Login = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
     const history = useHistory();
     const authCtx = useContext(AuthContext);
     const emailRef = useRef();
@@ -15,7 +12,6 @@ const Login = () => {
 
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
-
     };
 
     function submitHandler(event) {

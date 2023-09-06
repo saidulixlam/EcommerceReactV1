@@ -13,18 +13,18 @@ const CartProvider = (props) => {
         // Call the getItems function when the component is mounted
         console.log('this was called');
         getItems();
-    }, [authCtx.isLoggedIn]); // Empty dependency array ensures it's only called once
+    }, [authCtx.isLoggedIn]);
 
     const getItems = async () => {
         try {
             const removeAtSymbol = (email) => {
                 return email.replace(/[@.]/g, ''); // Replace "@" with an empty string
             };
-            // Process the email ID
+            
             const processedEmail = removeAtSymbol(useremail);
             console.log('i am there in getitems');
-            const response = await axios.get(`https://crudcrud.com/api/f30c160f874647eba43ddac72bd0fd61/${processedEmail}`);
-            // Handle success (e.g., update the cart state on the frontend)
+            const response = await axios.get(`https://crudcrud.com/api/a55b12ea4f364cf6a49f36b251112945/${processedEmail}`);
+            
             updatedItems(response.data);
             console.log(items);
         } catch (error) {
@@ -32,45 +32,32 @@ const CartProvider = (props) => {
         }
     }
 
-
     const addItemHandler = async (item) => {
-
+        console.log(item);
         const updatedItemsArray = [...items];
         // Check if an item with the same ID already exists
-        // const existingItemIndex = updatedItemsArray.findIndex((existingItem) => existingItem.id === item.id);
+        const existingItemIndex = updatedItemsArray.findIndex((existingItem) => existingItem.title === item.title);
 
-        // if (existingItemIndex !== -1) {
-        //     // If the item with the same ID exists, update its quantity
-        //     alert('Same item already exists');
-        // } else {
-        //     // If the item with the same ID doesn't exist, add it to the array
-        //     updatedItemsArray.push(item);
-        //     // Update the state with the new items array
-        //     updatedItems(updatedItemsArray);
-
-        try {
-            // Make a POST request to add the item to the server
-            const removeAtSymbol = (email) => {
-                return email.replace(/[@.]/g, ''); // Replace "@" with an empty string
-            };
-            const processedEmail = removeAtSymbol(useremail);
-            const res = await axios.post(`https://crudcrud.com/api/f30c160f874647eba43ddac72bd0fd61/${processedEmail}`, item);
-
-            // const existingItemIndex = updatedItemsArray.findIndex((existingItem) => existingItem.id === item.id);
-
-            // if (existingItemIndex !== -1) {
-            //     // If the item with the same ID exists, update its quantity
-            //     alert('Same item already exists');
-            // } else {
+         if (existingItemIndex !== -1) {
+             // If the item with the same ID exists, update its quantity
+            alert('Same item already exists');
+         }else{
+            try {
+                // Make a POST request to add the item to the server
+                const removeAtSymbol = (email) => {
+                    return email.replace(/[@.]/g, ''); // Replace "@" with an empty string
+                };
+                const processedEmail = removeAtSymbol(useremail);
+                const res = await axios.post(`https://crudcrud.com/api/a55b12ea4f364cf6a49f36b251112945/${processedEmail}`, item);
+                
                 updatedItemsArray.push(res.data);
-               
+                   
+            } catch (error) {
+                console.error("Error adding item:", error);
+            }
             
-
-        } catch (error) {
-            console.error("Error adding item:", error);
+            updatedItems(updatedItemsArray);
         }
-        
-        updatedItems(updatedItemsArray);
     }
 
     useEffect(() => {
@@ -87,7 +74,7 @@ const CartProvider = (props) => {
 
             const processedEmail = removeAtSymbol(useremail);
 
-            await axios.delete(`https://crudcrud.com/api/f30c160f874647eba43ddac72bd0fd61/${processedEmail}/${id}`);
+            await axios.delete(`https://crudcrud.com/api/a55b12ea4f364cf6a49f36b251112945/${processedEmail}/${id}`);
 
             // Update the state by filtering out the deleted item
             const updatedItemsArray = items.filter((item) => item._id !== id);

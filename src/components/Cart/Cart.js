@@ -1,9 +1,7 @@
 import { Button } from "react-bootstrap";
-
 import React, { useContext } from "react";
 import { Container, Table } from "react-bootstrap";
 import CartContext from "../store/cart-context";
-// import AuthContext from "../../authCtx/auth-context";
 
 const Cart = () => {
     const ctx = useContext(CartContext);
@@ -14,7 +12,6 @@ const Cart = () => {
     productsArr.forEach((item) => {
         console.log(item);
         totAmount += item.price;
-        
     })
 
     return (
@@ -37,8 +34,7 @@ const Cart = () => {
                                     {item.title}
                                 </td>
                                 <td>${item.price}</td>
-                                <td>1
-                                </td>
+                                <td>{item.quantity}</td>
                                 <td><button className="btn btn-danger" onClick={() => ctx.removeItem(item._id)}>REMOVE</button></td>
                             </tr>
                         ))}

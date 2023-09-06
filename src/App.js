@@ -10,12 +10,9 @@ import Home from './components/Pages/Home';
 import ContactUs from './components/Pages/ContactForm';
 import ProductDetails from './components/products/PoductDetails'
 import Login from './components/Pages/Login';
-// import AuthContext from './authCtx/auth-context';
-
 
 const App = () => {
   const [showCart, setShowCart] = useState(false);
-  // const ctx=useContext(AuthContext);
 
   const cartHandler = () => {
     setShowCart(!showCart);
@@ -55,8 +52,8 @@ const App = () => {
         'Content-Type': 'application/json'
       }
     });
-     const data = await res.json();
-     console.log(data);
+    const data = await res.json();
+    console.log(data);
   }
 
   return (
@@ -64,11 +61,10 @@ const App = () => {
       <CartProvider>
         <NavBar onClick={cartHandler} />
         <Header />
-
         {/* Use Routes with Route components */}
         <Switch>
           <Route path="/about" ><About /></Route>
-          <Route path="/login"  exact><Login /></Route>
+          <Route path="/login" exact><Login /></Route>
           <Route path="/products" ><ProductList /></Route>
           <Route path="/contact" ><ContactUs onAddUser={adduserHandler} /></Route>
           <Route path="/home" ><Home /></Route>
