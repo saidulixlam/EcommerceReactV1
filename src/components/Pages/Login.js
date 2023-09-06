@@ -50,7 +50,7 @@ const Login = () => {
                 } else {
                     // const data = await res.json();
                     // console.log(data);
-                
+
                     let errorMessage = 'Authentication Failed';
                     throw new Error(errorMessage);
                 }
@@ -59,7 +59,7 @@ const Login = () => {
                 authCtx.login(data.idToken, data.email) // Log data in both cases
                 console.log(data.email);
                 history.replace('/products')
-               
+
             })
             .catch((err) => {
                 alert(err.message);
@@ -67,34 +67,57 @@ const Login = () => {
     }
 
     return (
-        <Container>
-            <h1 className='my-5 text-center'>{isLogin ? 'Login' : 'Sign Up'}</h1>
-            <Form onSubmit={submitHandler} className='my-5'>
-                <Form.Group>
+        <Container
+            className='mt-5 p-4'
+            style={{
+                backgroundColor: '#87CEEB',
+                borderRadius: '10px',
+                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)'
+            }} // Set your desired background color
+        >
+            <h1 className='text-center'>{isLogin ? 'Login' : 'Sign Up'}</h1>
+            <Form onSubmit={submitHandler} className='mt-4'>
+                <Form.Group controlId='email'>
                     <Form.Label>Email:</Form.Label>
-                    <Form.Control type="text"
-                        id='email'
+                    <Form.Control
+                        type='email'
+                        placeholder='Enter your email'
                         required
-                        ref={emailRef} />
+                        ref={emailRef}
+                    />
                 </Form.Group>
-                <Form.Group >
+                <Form.Group controlId='password'>
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
                         type='password'
-                        id='password'
+                        placeholder='Enter your password'
                         required
-                        ref={passwordRef} />
+                        ref={passwordRef}
+                    />
                 </Form.Group>
-                <section>
-                    {!isLoading && <Button className='my-3' type="submit" variant='primary'>{isLogin ? 'Login' : 'Create Account'}</Button>}
+                <div className='text-center'>
+                    {!isLoading && (
+                        <Button
+                            type='submit'
+                            variant='primary'
+                            className='my-3'
+                        >
+                            {isLogin ? 'Login' : 'Create Account'}
+                        </Button>
+                    )}
                     {isLoading && <p>Sending request...</p>}
-
-                </section>
-                <section className='d-flex justify-content-center'>
-                    <Button className='my-3' variant="secondary" onClick={switchAuthModeHandler}>
-                        {isLogin ? "Don't have an account , Create new account" : 'Already have an account ? Login with existing account'}
+                </div>
+                <div className='text-center'>
+                    <Button
+                        variant='secondary'
+                        onClick={switchAuthModeHandler}
+                        className='my-3'
+                    >
+                        {isLogin
+                            ? "Don't have an account? Create a new account"
+                            : 'Already have an account? Log in'}
                     </Button>
-                </section>
+                </div>
             </Form>
         </Container>
     );

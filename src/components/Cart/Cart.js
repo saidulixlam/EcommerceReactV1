@@ -12,8 +12,9 @@ const Cart = () => {
 
     let totAmount = 0;
     productsArr.forEach((item) => {
+        console.log(item);
         totAmount += item.price;
-        console.log(item._id);
+        
     })
 
     return (

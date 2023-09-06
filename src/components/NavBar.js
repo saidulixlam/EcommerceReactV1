@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link ,useHistory} from 'react-router-dom';
 import HeaderCart from './Cart/HeaderCart';
 import AuthContext from '../authCtx/auth-context';
 
@@ -11,7 +11,10 @@ const NavBar = (props) => {
     color: 'white',
     textDecoration: 'none', // Remove underlines from links
   };
-
+const history=useHistory();
+if(!isLoggedIn){
+  history.replace('/login');
+}
   return (
     <Navbar bg='dark' variant='dark' className="fixed-top" style={{ zIndex: 1000 }}>
       <Navbar.Collapse>
