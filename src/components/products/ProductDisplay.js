@@ -32,6 +32,7 @@ const ProductDisplay = (props) => {
                             transformOrigin: 'center',
                         }}
                         className="imageStyle"
+                       
                     />
                 </Link>
 

@@ -49,6 +49,7 @@ const CartProvider = (props) => {
 
     // Function to add an item to the cart
     const addItemHandler = async (item) => {
+      console.log(item);
         const updatedItemsArray = [...items];
         let url = `https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}`;
       
