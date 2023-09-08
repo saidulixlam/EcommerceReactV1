@@ -10,8 +10,7 @@ const Cart = () => {
 
     let totAmount = 0;
     productsArr.forEach((item) => {
-        console.log(item);
-        totAmount += item.price;
+        totAmount += item.quantity*item.price;
     })
 
     return (
@@ -23,7 +22,7 @@ const Cart = () => {
                             <th>ITEM</th>
                             <th>PRICE</th>
                             <th>QUANTITY</th>
-                            <th>-</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

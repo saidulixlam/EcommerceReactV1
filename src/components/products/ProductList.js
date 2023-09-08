@@ -37,7 +37,7 @@ const PeoductList = () => {
 
             title: 'Album 4',
 
-            price: 100,
+            price: 125,
 
             imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
 

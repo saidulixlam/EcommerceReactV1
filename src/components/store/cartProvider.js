@@ -10,6 +10,19 @@ const CartProvider = (props) => {
     const useremail = authCtx.email;
     const isLoggedIn = authCtx.isLoggedIn;
 
+    // Function to fetch cart items from the server
+    const getItems = async () => {
+        try {
+            // Replace with your server endpoint
+            const response = await axios.get(`https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}`);
+
+            updatedItems(response.data);
+            
+        } catch (error) {
+            console.error('Error retrieving cart items:', error);
+        }
+    }
+
     // Load cart items from localStorage when the component is mounted
     useEffect(() => {
         const storedItems = localStorage.getItem('cartItems');
@@ -34,73 +47,60 @@ const CartProvider = (props) => {
         localStorage.setItem('cartItems', JSON.stringify(items));
     }, [items]);
 
-    // Function to fetch cart items from the server
-    const getItems = async () => {
-        try {
-            // Helper function to remove "@" and "." characters from email
-            const removeAtSymbol = (email) => {
-                return email.replace(/[@.]/g, '');
-            };
-
-            const processedEmail = removeAtSymbol(useremail);
-            console.log('Fetching cart items...');
-            
-            // Replace with your server endpoint
-            const response = await axios.get(`https://crudcrud.com/api/9bbfc1dcd88d473d8a8f8acfd58d8248/${processedEmail}`);
-            
-            updatedItems(response.data);
-            console.log('Cart items fetched:', items);
-        } catch (error) {
-            console.error('Error retrieving cart items:', error);
-        }
-    }
-
     // Function to add an item to the cart
     const addItemHandler = async (item) => {
-        console.log('Adding item:', item);
         const updatedItemsArray = [...items];
-        
+        let url = `https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}`;
+      
         // Check if an item with the same title already exists in the cart
-        const existingItemIndex = updatedItemsArray.findIndex((existingItem) => existingItem.title === item.title);
-
+        const existingItemIndex = updatedItemsArray.findIndex(
+          (existingItem) => existingItem.title === item.title
+        );
+      
         if (existingItemIndex !== -1) {
-            // If the item with the same title exists, show an alert
-            alert('The same item already exists in the cart');
-        } else {
-            try {
-                // Helper function to remove "@" and "." characters from email
-                const removeAtSymbol = (email) => {
-                    return email.replace(/[@.]/g, '');
-                };
-                const processedEmail = removeAtSymbol(useremail);
-                
-                // Make a POST request to add the item to the server
-                const res = await axios.post(`https://crudcrud.com/api/9bbfc1dcd88d473d8a8f8acfd58d8248/${processedEmail}`, item);
-                
-                // Add the item to the cart state
-                updatedItemsArray.push(res.data);
-            } catch (error) {
-                console.error("Error adding item:", error);
-            }
-            
+          // If the item already exists, update the quantity in the cart state
+          updatedItemsArray[existingItemIndex].quantity += Number(item.quantity);
+      
+          try {
+            // Update the item's quantity on the server
+            const itemIdToUpdate = updatedItemsArray[existingItemIndex]._id; // Assuming _id is the unique identifier for items on the server
+            const updatedItem = {
+              title:item.title,
+              imageUrl:item.imageUrl,
+              price:item.price,
+              quantity: updatedItemsArray[existingItemIndex].quantity
+            };
+      
+            // Make a PUT request to replace the item on the server with the updated quantity
+            await axios.put(`${url}/${itemIdToUpdate}`, updatedItem);
+      
             // Update the cart state
-            updatedItems(updatedItemsArray);
+            
+          } catch (error) {
+            console.error("Error updating item:", error);
+          }
+        } else {
+          try {
+            // Make a POST request to add the item to the server
+            const res = await axios.post(url, item);
+      
+            // Add the item to the cart state
+            updatedItemsArray.push(res.data);
+      
+            // Update the cart state
+            
+          } catch (error) {
+            console.error("Error adding item:", error);
+          }
         }
-    }
-
+        updatedItems(updatedItemsArray);
+      };
+      
     // Function to remove an item from the cart
     const removeItemHandler = async (id) => {
-        console.log('Removing item with id:', id);
         try {
-            // Helper function to remove "@" and "." characters from email
-            const removeAtSymbol = (email) => {
-                return email.replace(/[@.]/g, '');
-            }
-
-            const processedEmail = removeAtSymbol(useremail);
-
             // Make a DELETE request to remove the item from the server
-            await axios.delete(`https://crudcrud.com/api/9bbfc1dcd88d473d8a8f8acfd58d8248/${processedEmail}/${id}`);
+            await axios.delete(`https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}/${id}`);
 
             // Update the cart state by filtering out the deleted item
             const updatedItemsArray = items.filter((item) => item._id !== id);

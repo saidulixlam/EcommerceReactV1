@@ -1,64 +1,73 @@
-import React,{useContext} from 'react';
-import { Navbar, Nav ,Button} from 'react-bootstrap';
-import { Link ,useHistory} from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import HeaderCart from './Cart/HeaderCart';
 import AuthContext from '../authCtx/auth-context';
 
 const NavBar = (props) => {
   const ctx = useContext(AuthContext);
-  const isLoggedIn=ctx.isLoggedIn;
+  const isLoggedIn = ctx.isLoggedIn;
   const linkStyle = {
     color: 'white',
-    textDecoration: 'none', // Remove underlines from links
+    textDecoration: 'none',
   };
-const history=useHistory();
-if(!isLoggedIn){
-  history.replace('/login');
-}
+  const history = useHistory();
 
-const logoutHandler = () => {
-  ctx.logout();
-  localStorage.removeItem('token');
-  //alert('Log out Succesfull')
-  // Clear user session (e.g., remove tokens, clear local storage)
-  // Redirect to the login page or perform any other necessary actions
-  // Display a logout notification if needed
-};
+  if (!isLoggedIn) {
+    history.replace('/login');
+  }
+
+  const logoutHandler = () => {
+    ctx.logout();
+    localStorage.removeItem('token');
+  };
+
   return (
-    <Navbar bg='dark' variant='dark' className="fixed-top" style={{ zIndex: 1000 }}>
-      <Navbar.Collapse>
-        <Nav className="mx-auto">
-          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-            <Nav.Link as={Link} to="/home" style={linkStyle}>
-              Home
-            </Nav.Link>
-          </Nav.Item>
-          {isLoggedIn &&  <Nav.Item className="mx-3">
-           <Nav.Link as={Link} to="/products" style={linkStyle}>
-              Store
-            </Nav.Link>
-          </Nav.Item>}
-          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-            <Nav.Link as={Link} to="/about" style={linkStyle}>
-              About
-            </Nav.Link>
-          </Nav.Item>
-
-          {!isLoggedIn && <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-            <Nav.Link as={Link} to="/login" style={linkStyle}>
-              Login
-            </Nav.Link>
-          </Nav.Item>}
-          <Nav.Item className="mx-3"> {/* Use mx-3 to add margin */}
-          {isLoggedIn && <Button variant='light' onClick={logoutHandler}>Logout</Button>}
-          </Nav.Item>
-
-        </Nav>
-        <div>
-          <HeaderCart onClick={props.onClick} />
-        </div>
-      </Navbar.Collapse>
-    </Navbar>
+    <React.Fragment>
+      <Navbar bg="dark" variant="dark" expand="lg" className="fixed-top " style={{ zIndex: 1000 }} collapseOnSelect>
+        <Container fluid>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mx-auto">
+            <Nav.Item className="mx-5">
+              <Nav.Link as={Link} to="/home" style={linkStyle}>
+                Home
+              </Nav.Link>
+            </Nav.Item>
+            {isLoggedIn && (
+              <Nav.Item className="mx-5">
+                <Nav.Link as={Link} to="/products" style={linkStyle}>
+                  Store
+                </Nav.Link>
+              </Nav.Item>
+            )}
+            <Nav.Item className="mx-5">
+              <Nav.Link as={Link} to="/about" style={linkStyle}>
+                About
+              </Nav.Link>
+            </Nav.Item>
+            {!isLoggedIn && (
+              <Nav.Item className="mx-5">
+                <Nav.Link as={Link} to="/login" style={linkStyle}>
+                  Login
+                </Nav.Link>
+              </Nav.Item>
+            )}
+            {isLoggedIn && (
+              <Nav.Item className="mx-5">
+                <Nav.Link onClick={logoutHandler} style={linkStyle}>
+                  Logout
+                </Nav.Link>
+              </Nav.Item>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <div className="position-fixed top-0 end-0 m-1" style={{ zIndex: 1000 }}>
+  <HeaderCart onClick={props.onClick} />
+</div>
+    </React.Fragment>
   );
 };
 
