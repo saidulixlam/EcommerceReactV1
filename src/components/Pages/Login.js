@@ -14,13 +14,14 @@ const Login = () => {
         setIsLogin((prevState) => !prevState);
     };
 
-    function submitHandler(event) {
+    async function submitHandler(event) {
         event.preventDefault();
 
         const enteredEmail = emailRef.current.value;
         const enteredPassword = passwordRef.current.value;
 
         setIsLoading(true);
+
         let url;
         if (isLogin) {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAUCboRWtRYqoJfilnJXv_ws_eNYSV3-wI';
@@ -28,39 +29,43 @@ const Login = () => {
         } else {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAUCboRWtRYqoJfilnJXv_ws_eNYSV3-wI';
         }
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(async (res) => {
-                setIsLoading(false);
-                if (res.ok) {
-                    return res.json(); // Parse the response JSON when it's successful
-                } else {
-                    // const data = await res.json();
-                    // console.log(data);
-
-                    let errorMessage = 'Authentication Failed';
+        
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: enteredEmail,
+                    password: enteredPassword,
+                    returnSecureToken: true,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+      
+                if(!response.ok){
+                    const data = await response.json();
+                    let errorMessage="Authentication Failed";
+    
+                    if(data && data.error && data.error.message){
+                        errorMessage=data.error.message;
+                    }
+    
                     throw new Error(errorMessage);
                 }
-            })
-            .then((data) => {
-                authCtx.login(data.idToken, data.email) // Log data in both cases
-                console.log(data.email);
-                history.replace('/products')
-
-            })
-            .catch((err) => {
-                alert(err.message);
-            });
-    }
+          
+                const data = await response.json();
+                const email=data.email;
+                const token=data.idToken;
+                const endpoint=`${email.replace(/\.|@/g, "")}`;
+                authCtx.login(token,endpoint);
+                history.replace('/products');
+        } catch (err){
+            alert(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    }                                                                                  
 
     return (
         <Container
