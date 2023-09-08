@@ -1,5 +1,6 @@
-import React from 'react';
-import { Table, Container,Button} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { Table, Container, Button } from 'react-bootstrap';
+
 const Home = () => {
   const tourData = [
     { date: 'JUL 16', location: 'DETROIT, MI', venue: 'DTE ENERGY MUSIC THEATRE', tickets: 'BUY TICKETS' },
@@ -11,39 +12,37 @@ const Home = () => {
   ];
 
   return (
-    <>
-    <Container>
-      <h1 className="text-center font-weight-bold mt-5 my-4">TOURS</h1>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Venue</th>
-            <th>Tickets</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tourData.map((tour, index) => (
-            <tr key={index}>
-              <td>{tour.date}</td>
-              <td>{tour.location}</td>
-              <td>{tour.venue}</td>
-              <td><Button>{tour.tickets}</Button></td>
+    <Fragment>
+      <Container>
+        <h1 className="text-center font-weight-bold mt-5 my-4">TOURS</h1>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Venue</th>
+              <th>Tickets</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {tourData.map((tour, index) => (
+              <tr key={index}>
+                <td>{tour.date}</td>
+                <td>{tour.location}</td>
+                <td>{tour.venue}</td>
+                <td><Button>{tour.tickets}</Button></td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Container>
       <div className="bg-info text-white text-center py-4 mt-5">
-      <Container className='d-flex'>
-            <div> </div>
-            <h1 className="ml-5 font-weight-bold display-4 my-6">The Generics</h1>
-      </Container>
-    </div>
-    </>
-    
-    
+        <Container>
+          <h1 className="font-weight-bold display-4 my-6">The Generics</h1>
+        </Container>
+      </div>
+    </Fragment>
+
   );
 };
 
