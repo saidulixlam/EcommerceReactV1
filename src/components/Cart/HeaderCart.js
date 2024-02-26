@@ -6,9 +6,13 @@ import CartContext from "../store/cart-context";
 const HeaderCart = (props) => {
     const ctx = useContext(CartContext);
     let totalItem = 0;
-    ctx.items.forEach((element) => {
-        totalItem += element.quantity;
-    });
+    if (ctx.items) {
+        ctx.items.forEach((element) => {
+          totalItem += element.quantity;
+        });
+      } else {
+        console.error("ctx.items is null or undefined");
+      }
 
     return (
         <Col xs={12} sm={4} md={3}>

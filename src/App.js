@@ -10,6 +10,7 @@ import Home from './components/Pages/Home';
 import ContactUs from './components/Pages/ContactForm';
 import ProductDetails from './components/products/PoductDetails'
 import Login from './components/Pages/Login';
+import AddProduct from './components/products/AddProduct';
 
 const App = () => {
   const [showCart, setShowCart] = useState(false);
@@ -66,6 +67,7 @@ const App = () => {
           <Route path="/about" ><About /></Route>
           <Route path="/login" exact><Login /></Route>
           <Route path="/products" ><ProductList /></Route>
+          <Route path="/add" ><AddProduct /></Route>
           <Route path="/contact" ><ContactUs onAddUser={adduserHandler} /></Route>
           <Route path="/home" ><Home /></Route>
           <Route path="/product/:productId" ><ProductDetails /></Route>

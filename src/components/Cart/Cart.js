@@ -9,9 +9,11 @@ const Cart = () => {
     const productsArr = ctx.items;
 
     let totAmount = 0;
-    productsArr.forEach((item) => {
-        totAmount += item.quantity*item.price;
-    })
+    if(productsArr){
+        productsArr.forEach((item) => {
+            totAmount += item.quantity*item.price;
+        })
+    }
 
     return (
         <Container>
@@ -26,14 +28,14 @@ const Cart = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {productsArr.map((item) => (
+                        {productsArr && productsArr.map((item) => (
                             <tr key={item.title}>
                                 <td className="d-flex">
                                     <img src={item.imageUrl} alt="Albums" width="50" height="50" />
                                     {item.title}
                                 </td>
                                 <td>${item.price}</td>
-                                <td>{item.quantity}</td>
+                                <td>{item.quantity}</td> 
                                 <td><button className="btn btn-danger" onClick={() => ctx.removeItem(item._id)}>REMOVE</button></td>
                             </tr>
                         ))}

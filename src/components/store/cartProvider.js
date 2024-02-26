@@ -14,8 +14,8 @@ const CartProvider = (props) => {
     const getItems = async () => {
         try {
             // Replace with your server endpoint
-            const response = await axios.get(`https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}`);
-
+            const response = await axios.get(`https://shoppy-8c801-default-rtdb.firebaseio.com/${useremail}.json`);
+            
             updatedItems(response.data);
             
         } catch (error) {
@@ -51,7 +51,7 @@ const CartProvider = (props) => {
     const addItemHandler = async (item) => {
      
         const updatedItemsArray = [...items];
-        let url = `https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}`;
+        let url = `https://shoppy-8c801-default-rtdb.firebaseio.com/${useremail}.json`;
       
         // Check if an item with the same title already exists in the cart
         const existingItemIndex = updatedItemsArray.findIndex(
@@ -101,7 +101,7 @@ const CartProvider = (props) => {
     const removeItemHandler = async (id) => {
         try {
             // Make a DELETE request to remove the item from the server
-            await axios.delete(`https://crudcrud.com/api/f87ab8c879a74644b8c794e4b8149d63/${useremail}/${id}`);
+            await axios.delete(`https://shoppy-8c801-default-rtdb.firebaseio.com/${useremail}/${id}.json`);
 
             // Update the cart state by filtering out the deleted item
             const updatedItemsArray = items.filter((item) => item._id !== id);
